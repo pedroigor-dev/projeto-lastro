@@ -1,0 +1,29 @@
+stages: [quality, build]
+
+backend-quality:
+  image: maven:3.9.11-eclipse-temurin-21
+  stage: quality
+  script:
+    - cd backend
+    - mvn --batch-mode verify
+  artifacts:
+    when: always
+    paths:
+      - backend/target/site/jacoco
+      - backend/target/bom.json
+
+frontend-quality:
+  image: node:22.22-alpine
+  stage: quality
+  script:
+    - cd frontend
+    - npm ci
+    - npm test -- --watch=false
+    - npm run build
+
+container-build:
+  image: docker:28
+  services: [docker:28-dind]
+  stage: build
+  script:
+    - docker compose build

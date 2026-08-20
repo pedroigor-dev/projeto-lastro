@@ -1,0 +1,67 @@
+openapi: 3.1.0
+info:
+  title: Vertex SDD Hub API
+  version: 0.1.0
+  description: Lifecycle and release evidence for change specifications.
+servers:
+  - url: http://localhost:8080
+security:
+  - apiKey: []
+paths:
+  /api/v1/specs:
+    get:
+      summary: List specifications
+      responses:
+        '200':
+          description: Specifications ordered by last update
+    post:
+      summary: Create a draft specification
+      responses:
+        '201':
+          description: Specification created
+        '400':
+          $ref: '#/components/responses/InvalidInput'
+  /api/v1/specs/{id}:
+    parameters:
+      - $ref: '#/components/parameters/SpecId'
+    get:
+      summary: Get a specification and its evidence
+      responses:
+        '200': { description: Specification found }
+        '404': { description: Specification not found }
+  /api/v1/specs/{id}/readiness:
+    parameters:
+      - $ref: '#/components/parameters/SpecId'
+    get:
+      summary: Explain whether a specification can be released
+      responses:
+        '200': { description: Readiness result with explicit blockers }
+  /api/v1/specs/{id}/{action}:
+    parameters:
+      - $ref: '#/components/parameters/SpecId'
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+          enum: [submit, approve, return, start, release]
+    post:
+      summary: Move a specification through its lifecycle
+      responses:
+        '200': { description: Updated specification }
+        '422': { description: Domain rule rejected the transition }
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  parameters:
+    SpecId:
+      name: id
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+  responses:
+    InvalidInput:
+      description: Validation failed

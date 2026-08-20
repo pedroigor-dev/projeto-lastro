@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "vertex-sdd-hub": {
+      "type": "http",
+      "url": "http://localhost:8080/mcp",
+      "headers": {
+        "X-API-Key": "${VERTEX_API_KEY}"
+      }
+    }
+  }
+}
