@@ -12,7 +12,7 @@
 
 </div>
 
-![Painel do Vertex SDD Hub](docs/screenshots/vertex-dashboard.png)
+![Painel do Vertex SDD Hub](docs/screenshots/vertex-dashboard-light.png)
 
 ## O problema que este projeto enfrenta
 
@@ -25,7 +25,7 @@ O Vertex mantém esse fio. Cada mudança nasce como especificação, passa por r
 - Domínio Java sem dependência de framework, protegido por teste arquitetural.
 - API Spring Boot com validação, Problem Details, API key, CORS restrito e lock otimista.
 - Persistência PostgreSQL versionada por Flyway.
-- Angular com signals, Reactive Forms, cliente tipado e interface responsiva.
+- Angular com signals, Reactive Forms, cliente tipado e interface responsiva em paleta monocromática.
 - Planner local determinístico: funciona sem custo externo e referencia todos os critérios.
 - Servidor MCP com ferramentas somente leitura para uso seguro por agentes.
 - Métricas Prometheus, health checks, SBOM CycloneDX, Checkstyle, SpotBugs e JaCoCo.
@@ -37,6 +37,8 @@ O Vertex mantém esse fio. Cada mudança nasce como especificação, passa por r
 ![Arquitetura de componentes](docs/assets/component-architecture.png)
 
 O backend usa portas e adaptadores. Os controladores REST e MCP chamam serviços de aplicação; as regras de transição e prontidão ficam no agregado `ChangeSpec`; JPA e o planner implementam portas externas. A interface não replica regras de release: ela apresenta o estado decidido pelo servidor.
+
+No frontend, hierarquia e espaçamento fazem o trabalho que antes dependia de cores fortes e muitas bordas. Estados continuam legíveis em escala de cinza, os movimentos são curtos e a preferência `prefers-reduced-motion` é respeitada.
 
 Veja também o [contexto do sistema](docs/assets/system-context.png), o [ciclo da especificação](docs/assets/spec-lifecycle.png) e a [sequência de release](docs/assets/release-sequence.png).
 
@@ -85,7 +87,7 @@ cd backend
 
 cd ../frontend
 npm test -- --watch=false
-npm run build           # bundle inicial: 239 KB bruto
+npm run build           # bundle inicial: 252 KB bruto
 ```
 
 A política de cobertura exige pelo menos 85% sobre domínio e serviços de aplicação. Na versão atual, essa área atingiu **97,22%**. Adaptadores, DTOs e configuração são excluídos desse número; isso está declarado no `pom.xml`, sem maquiar o escopo da métrica.
