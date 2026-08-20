@@ -1,0 +1,155 @@
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Vertex SDD Hub">
+    <span class="brand-mark">V</span>
+    <span><strong>Vertex</strong><small>SDD Hub</small></span>
+  </a>
+  <div class="topbar-actions">
+    <span class="environment"><i></i> Ambiente local</span>
+    <button class="primary" type="button" (click)="showCreate.set(true)">Nova especificação</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <span class="eyebrow">SPEC-DRIVEN DELIVERY</span>
+      <h1>Decisões técnicas que chegam<br><em>prontas para release.</em></h1>
+      <p>Do problema à evidência: critérios, revisão e qualidade no mesmo fluxo.</p>
+    </div>
+    <div class="hero-stamp" aria-label="Qualidade rastreável">
+      <strong>97,22%</strong><span>cobertura<br>de negócio</span>
+    </div>
+  </section>
+
+  @if (error()) {
+    <div class="alert" role="alert">
+      {{ error() }} <button type="button" (click)="error.set(null)">Fechar</button>
+    </div>
+  }
+
+  <section class="metrics" aria-label="Resumo das especificações">
+    <article><span>Total de specs</span><strong>{{ specs().length }}</strong><small>escopo rastreável</small></article>
+    <article><span>Em implementação</span><strong>{{ implementingCount() }}</strong><small>trabalho em curso</small></article>
+    <article><span>Releases concluídas</span><strong>{{ releasedCount() }}</strong><small>com evidências</small></article>
+    <article><span>Gates pendentes</span><strong>{{ pendingEvidence() }}</strong><small>na seleção atual</small></article>
+  </section>
+
+  <section class="workspace">
+    <aside class="spec-list">
+      <div class="section-heading">
+        <div><span class="eyebrow">PORTFÓLIO</span><h2>Especificações</h2></div>
+        <button class="icon-button" type="button" (click)="loadSpecs()" title="Atualizar">↻</button>
+      </div>
+      <label class="search">
+        <span>⌕</span>
+        <input #searchInput type="search" placeholder="Buscar por chave, título ou autor"
+          (input)="query.set(searchInput.value)">
+      </label>
+      <div class="cards">
+        @if (loading() && specs().length === 0) {
+          <p class="empty">Consultando especificações…</p>
+        } @else if (filteredSpecs().length === 0) {
+          <div class="empty"><strong>Nenhuma especificação por aqui.</strong><br>Comece registrando uma decisão.</div>
+        }
+        @for (spec of filteredSpecs(); track spec.id) {
+          <button class="spec-card" type="button" [class.active]="selected()?.id === spec.id"
+            (click)="selectSpec(spec.id)">
+            <span class="spec-key">{{ spec.key }}</span>
+            <span class="status" [attr.data-status]="spec.status">{{ statusLabel(spec.status) }}</span>
+            <strong>{{ spec.title }}</strong>
+            <small>{{ spec.owner }} · {{ spec.updatedAt | date:'dd/MM HH:mm' }}</small>
+          </button>
+        }
+      </div>
+    </aside>
+
+    <article class="detail">
+      @if (selected(); as spec) {
+        <div class="detail-header">
+          <div><span class="eyebrow">{{ spec.key }} · RISCO {{ spec.riskLevel }}</span><h2>{{ spec.title }}</h2></div>
+          <span class="status large" [attr.data-status]="spec.status">{{ statusLabel(spec.status) }}</span>
+        </div>
+
+        <div class="narrative">
+          <div><span>Problema</span><p>{{ spec.problem }}</p></div>
+          <div><span>Solução proposta</span><p>{{ spec.proposedSolution }}</p></div>
+        </div>
+
+        <div class="workflow-actions">
+          @if (can('submit')) { <button type="button" (click)="move('submit')">Enviar para revisão →</button> }
+          @if (can('approve')) { <button type="button" (click)="move('approve')">Aprovar especificação</button> }
+          @if (can('return')) { <button class="secondary" type="button" (click)="move('return')">Solicitar ajustes</button> }
+          @if (can('start')) { <button type="button" (click)="move('start')">Iniciar implementação →</button> }
+          @if (can('release')) { <button type="button" (click)="move('release')">Confirmar release</button> }
+          @if (saving()) { <span>Registrando decisão…</span> }
+        </div>
+
+        <div class="evidence-grid">
+          <section>
+            <div class="subheading"><h3>Critérios de aceite</h3><span>{{ spec.acceptanceCriteria.length }}</span></div>
+            @for (criterion of spec.acceptanceCriteria; track criterion.id) {
+              <label class="criterion">
+                <input type="checkbox" [checked]="criterion.verified"
+                  [disabled]="spec.status !== 'IMPLEMENTING'"
+                  (change)="verifyCriterion(criterion.id, !criterion.verified)">
+                <span>{{ criterion.description }}</span>
+              </label>
+            }
+          </section>
+          <section>
+            <div class="subheading"><h3>Quality gates</h3><span>{{ spec.qualityGates.length }}</span></div>
+            @for (gate of spec.qualityGates; track gate.type) {
+              <div class="gate">
+                <div><strong>{{ gate.type.replaceAll('_', ' ') }}</strong><small>{{ gateStatusLabel(gate.status) }}</small></div>
+                @if (gate.status !== 'PASSED' && spec.status === 'IMPLEMENTING') {
+                  <button type="button" (click)="passGate(gate.type)">Anexar evidência</button>
+                } @else {
+                  <span class="gate-dot" [class.passed]="gate.status === 'PASSED'"></span>
+                }
+              </div>
+            }
+          </section>
+        </div>
+
+        <section class="history">
+          <div class="subheading"><h3>Histórico de decisões</h3><span>v{{ spec.version }}</span></div>
+          @for (event of spec.history.slice().reverse(); track event.id) {
+            <div class="event"><i></i><div><strong>{{ event.type.replaceAll('_', ' ') }}</strong><p>{{ event.detail }}</p><small>{{ event.actor }} · {{ event.occurredAt | date:'dd/MM/yyyy HH:mm' }}</small></div></div>
+          }
+        </section>
+      } @else {
+        <div class="detail-empty"><span>⌁</span><h2>Selecione uma especificação</h2><p>Os critérios, gates e decisões aparecerão aqui.</p></div>
+      }
+    </article>
+  </section>
+</main>
+
+@if (showCreate()) {
+  <div class="modal-backdrop" (click)="showCreate.set(false)">
+    <form class="modal" [formGroup]="createForm" (ngSubmit)="createSpec()"
+      (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div><span class="eyebrow">NOVA DECISÃO</span><h2>Criar especificação</h2></div>
+        <button type="button" (click)="showCreate.set(false)">×</button>
+      </div>
+      <label>Título<input formControlName="title" placeholder="Ex.: Automatizar evidências de release"></label>
+      <div class="form-row">
+        <label>Responsável<input formControlName="owner"></label>
+        <label>Risco<select formControlName="riskLevel"><option value="LOW">Baixo</option><option value="MEDIUM">Médio</option><option value="HIGH">Alto</option></select></label>
+      </div>
+      <label>Problema<textarea formControlName="problem" rows="3" placeholder="Que situação precisa mudar?"></textarea></label>
+      <label>Solução proposta<textarea formControlName="proposedSolution" rows="3" placeholder="Qual caminho será validado?"></textarea></label>
+      <fieldset formArrayName="acceptanceCriteria">
+        <legend>Critérios de aceite</legend>
+        @for (control of criteria.controls; track $index) {
+          <div class="criterion-input"><input [formControlName]="$index" placeholder="O comportamento observável que comprova a entrega"><button type="button" (click)="removeCriterion($index)">×</button></div>
+        }
+        <button class="text-button" type="button" (click)="addCriterion()">+ Adicionar critério</button>
+      </fieldset>
+      <div class="modal-actions">
+        <button class="secondary" type="button" (click)="showCreate.set(false)">Cancelar</button>
+        <button class="primary" type="submit" [disabled]="saving()">{{ saving() ? 'Salvando…' : 'Criar especificação' }}</button>
+      </div>
+    </form>
+  </div>
+}
