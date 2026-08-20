@@ -1,0 +1,8 @@
+stateDiagram-v2
+    [*] --> DRAFT: especificação criada
+    DRAFT --> IN_REVIEW: enviar para revisão
+    IN_REVIEW --> DRAFT: solicitar ajustes
+    IN_REVIEW --> APPROVED: aprovar com comentário
+    APPROVED --> IMPLEMENTING: iniciar trabalho
+    IMPLEMENTING --> RELEASED: critérios e gates aprovados
+    RELEASED --> [*]

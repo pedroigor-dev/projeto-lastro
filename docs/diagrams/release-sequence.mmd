@@ -1,0 +1,19 @@
+sequenceDiagram
+    actor Dev as Pessoa desenvolvedora
+    participant UI as Angular
+    participant API as Spring Boot
+    participant Domain as ChangeSpec
+    participant DB as PostgreSQL
+    participant CI as Pipeline
+
+    Dev->>UI: solicita prontidão de release
+    UI->>API: GET /readiness
+    API->>DB: carrega spec e evidências
+    API->>Domain: evaluateReadiness()
+    Domain-->>API: blockers explícitos
+    API-->>UI: ready + blockers
+    CI->>API: registra gates com referências
+    Dev->>UI: confirma release
+    UI->>API: POST /release
+    API->>Domain: valida critérios e gates novamente
+    Domain-->>DB: status RELEASED + evento de auditoria

@@ -21,6 +21,8 @@ data/
 # Documentation build
 docs/poc/rendered/
 docs/poc/.tmp/
+work/*
+!work/build_poc.py
 
 # Operating systems
 .DS_Store

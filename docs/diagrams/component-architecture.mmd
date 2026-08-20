@@ -1,0 +1,28 @@
+flowchart TB
+    subgraph Browser[Angular 21]
+        View[Signals + Reactive Forms]
+        Client[Typed HTTP client]
+        Interceptor[API-key interceptor]
+        View --> Client --> Interceptor
+    end
+
+    subgraph Backend[Spring Boot 4 / Java 21]
+        Rest[REST controllers]
+        Tools[MCP tools]
+        App[Application services]
+        Domain[Framework-free domain]
+        Ports[Repository / Planner ports]
+        Adapters[JPA + deterministic planner]
+        Rest --> App
+        Tools --> App
+        App --> Domain
+        App --> Ports
+        Adapters -. implementam .-> Ports
+    end
+
+    Interceptor --> Rest
+    Adapters --> PostgreSQL[(PostgreSQL)]
+    Actuator[Actuator / Prometheus] --> Backend
+
+    classDef core fill:#b9f35d,color:#11160d,stroke:#dfff9f;
+    class Domain,App core;

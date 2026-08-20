@@ -1,0 +1,14 @@
+flowchart LR
+    Engineer[Pessoa desenvolvedora] -->|cria e revisa specs| UI[Angular workspace]
+    Reviewer[Revisor técnico] -->|aprova decisões| UI
+    Agent[Agente de desenvolvimento] -->|consulta contexto| MCP[MCP read-only]
+    UI -->|REST + API key| API[Spring Boot API]
+    MCP --> API
+    API --> DB[(PostgreSQL)]
+    Pipeline[CI/CD] -->|referências de evidência| API
+    API --> Metrics[Prometheus]
+
+    classDef core fill:#b9f35d,color:#11160d,stroke:#dfff9f;
+    classDef edge fill:#151a17,color:#eef1ed,stroke:#586159;
+    class API,UI core;
+    class Engineer,Reviewer,Agent,MCP,DB,Pipeline,Metrics edge;
