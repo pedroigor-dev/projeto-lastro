@@ -35,7 +35,7 @@
         <spring-ai.version>2.0.1</spring-ai.version>
         <jacoco.version>0.8.13</jacoco.version>
         <spotbugs.version>4.10.4.0</spotbugs.version>
-        <cyclonedx.version>2.9.1</cyclonedx.version>
+        <cyclonedx.version>2.9.3</cyclonedx.version>
     </properties>
 
     <dependencyManagement>
