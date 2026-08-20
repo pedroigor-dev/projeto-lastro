@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: vertex-sdd-hub
+  datasource:
+    url: ${VERTEX_DATABASE_URL:jdbc:postgresql://localhost:5432/vertex}
+    username: ${VERTEX_DATABASE_USER:vertex}
+    password: ${VERTEX_DATABASE_PASSWORD:vertex}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  ai:
+    mcp:
+      server:
+        name: vertex-sdd-hub
+        version: 0.1.0
+        protocol: STATELESS
+        instructions: Ferramentas somente leitura para consultar especificações e prontidão de release.
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+vertex:
+  security:
+    api-key: ${VERTEX_API_KEY:local-development-key}
+
+server:
+  shutdown: graceful
