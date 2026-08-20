@@ -17,10 +17,10 @@ describe('App', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('renders the product promise', () => {
+  it('renders the workspace title', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('h1').textContent)
-      .toContain('Decisões técnicas');
+      .toContain('Especificações de mudança');
   });
 });

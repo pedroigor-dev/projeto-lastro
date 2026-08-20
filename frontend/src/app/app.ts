@@ -168,6 +168,50 @@ export class App implements OnInit {
     return status === 'PASSED' ? 'Com evidência' : status === 'FAILED' ? 'Falhou' : 'Pendente';
   }
 
+  protected gateLabel(type: GateType): string {
+    const labels: Record<GateType, string> = {
+      BACKEND_TESTS: 'Testes do backend',
+      FRONTEND_TESTS: 'Testes do frontend',
+      QUALITY: 'Qualidade do código',
+      SECURITY: 'Segurança',
+      RELEASE_NOTES: 'Notas da versão'
+    };
+    return labels[type];
+  }
+
+  protected riskLabel(risk: RiskLevel): string {
+    return { LOW: 'baixo', MEDIUM: 'médio', HIGH: 'alto' }[risk];
+  }
+
+  protected eventTypeLabel(type: string): string {
+    const labels: Record<string, string> = {
+      CREATED: 'Especificação criada',
+      STATUS_CHANGED: 'Status alterado',
+      GATE_UPDATED: 'Evidência registrada',
+      CRITERION_UPDATED: 'Critério atualizado'
+    };
+    return labels[type] ?? type.replaceAll('_', ' ').toLocaleLowerCase('pt-BR');
+  }
+
+  protected eventDetail(type: string, detail: string): string {
+    if (type === 'CREATED') {
+      return 'A mudança foi registrada.';
+    }
+    if (type === 'CRITERION_UPDATED') {
+      return detail.endsWith('=true') ? 'Critério marcado como atendido.' : 'Critério reaberto.';
+    }
+    if (type === 'GATE_UPDATED') {
+      const gate = detail.split('=')[0] as GateType;
+      return `Evidência anexada: ${this.gateLabel(gate).toLocaleLowerCase('pt-BR')}.`;
+    }
+    const transitions: Record<string, string> = {
+      'Submitted for review': 'Enviada para revisão.',
+      'Implementation started': 'Implementação iniciada.'
+    };
+    const decision = detail.split(' -> ')[0];
+    return transitions[decision] ?? decision;
+  }
+
   protected can(action: string): boolean {
     const status = this.selected()?.status;
     return (action === 'submit' && status === 'DRAFT') ||
