@@ -1,0 +1,27 @@
+# Java
+backend/target/
+*.class
+
+# Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Runtime
+.env
+*.log
+data/
+
+# Documentation build
+docs/poc/rendered/
+docs/poc/.tmp/
+
+# Operating systems
+.DS_Store
+Thumbs.db
