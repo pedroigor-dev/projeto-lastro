@@ -1,6 +1,6 @@
 <div align="center">
 
-# Vertex SDD Hub
+# Projeto Lastro
 
 **Uma decisão técnica só está pronta quando o time consegue explicar o problema, provar o comportamento e rastrear o release.**
 
@@ -12,13 +12,13 @@
 
 </div>
 
-![Painel do Vertex SDD Hub](docs/screenshots/vertex-dashboard-light.png)
+![Painel do Projeto Lastro](docs/screenshots/projeto-lastro-dashboard.png)
 
 ## O problema que este projeto enfrenta
 
 Em muitos times, a motivação da mudança fica no Jira, os critérios aparecem no pull request e as evidências terminam espalhadas entre pipeline, SonarQube e mensagens. Na hora do release, sobra uma pergunta simples e difícil de responder: **o que prova que esta entrega está pronta?**
 
-O Vertex mantém esse fio. Cada mudança nasce como especificação, passa por revisão, vira trabalho rastreável e só pode ser publicada quando critérios e gates têm evidências. Quando algo falta, a API devolve os bloqueadores concretos.
+O Lastro mantém esse fio. Cada mudança nasce como especificação, passa por revisão, vira trabalho rastreável e só pode ser publicada quando critérios e gates têm evidências. Quando algo falta, a API devolve os bloqueadores concretos.
 
 ## O que demonstra engenharia de verdade
 
@@ -57,8 +57,8 @@ Os cinco gates são testes de backend, testes de frontend, qualidade, segurança
 Pré-requisito: Docker Desktop.
 
 ```bash
-git clone https://github.com/pedroigor-dev/vertex-sdd-hub.git
-cd vertex-sdd-hub
+git clone https://github.com/pedroigor-dev/projeto-lastro.git
+cd projeto-lastro
 docker compose up --build
 ```
 
@@ -94,7 +94,7 @@ A política de cobertura exige pelo menos 85% sobre domínio e serviços de apli
 
 ## SDD e desenvolvimento agêntico
 
-A especificação inicial está em [`specs/001-vertex-sdd-hub/spec.md`](specs/001-vertex-sdd-hub/spec.md). O [`CLAUDE.md`](CLAUDE.md) obriga o agente a partir de um critério, consultar ADRs e produzir evidência. A skill [`spec-review`](.claude/skills/spec-review/SKILL.md) transforma a revisão em um procedimento repetível.
+A especificação inicial está em [`specs/001-projeto-lastro/spec.md`](specs/001-projeto-lastro/spec.md). O [`CLAUDE.md`](CLAUDE.md) obriga o agente a partir de um critério, consultar ADRs e produzir evidência. A skill [`spec-review`](.claude/skills/spec-review/SKILL.md) transforma a revisão em um procedimento repetível.
 
 O MCP expõe três consultas: lista de specs, detalhe de uma spec e prontidão de release. A decisão de não oferecer escrita está documentada no [ADR-0003](docs/adr/0003-read-only-mcp-tools.md).
 
@@ -109,8 +109,8 @@ Esses limites também aparecem no [threat model](docs/security-threat-model.md) 
 
 ## Documentação
 
-- [POC em PDF](docs/poc/POC-Vertex-SDD-Hub.pdf)
-- [POC editável em DOCX](docs/poc/POC-Vertex-SDD-Hub.docx)
+- [POC em PDF](docs/poc/POC-Projeto-Lastro.pdf)
+- [POC editável em DOCX](docs/poc/POC-Projeto-Lastro.docx)
 - [Arquitetura](docs/architecture.md)
 - [Contrato OpenAPI](docs/openapi.yaml)
 - [Mapeamento Jira](docs/jira-workflow.md)

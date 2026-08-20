@@ -12,10 +12,10 @@ from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "docs" / "poc" / "POC-Vertex-SDD-Hub.docx"
+OUTPUT = ROOT / "docs" / "poc" / "POC-Projeto-Lastro.docx"
 ASSETS = ROOT / "docs" / "assets"
-SCREENSHOT = ROOT / "docs" / "screenshots" / "vertex-dashboard.png"
-SCREENSHOT_DOC = ROOT / "work" / "vertex-dashboard-doc.png"
+SCREENSHOT = ROOT / "docs" / "screenshots" / "projeto-lastro-dashboard.png"
+SCREENSHOT_DOC = ROOT / "work" / "projeto-lastro-dashboard-doc.png"
 GREEN = "65A30D"
 DARK = "172016"
 GRAY = "5E665F"
@@ -168,7 +168,7 @@ def cover(document):
     document.add_paragraph("\n\n\n\n")
     title = document.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = title.add_run("VERTEX SDD HUB")
+    run = title.add_run("PROJETO LASTRO")
     run.bold = True
     run.font.name = "Arial"
     run.font.size = Pt(24)
@@ -190,7 +190,7 @@ def title_page(document):
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.runs[0].bold = True
     document.add_paragraph("\n\n")
-    title = document.add_paragraph("VERTEX SDD HUB")
+    title = document.add_paragraph("PROJETO LASTRO")
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     title.runs[0].bold = True
     title.runs[0].font.size = Pt(20)
@@ -213,7 +213,7 @@ def title_page(document):
 def summary_pages(document):
     add_heading(document, "RESUMO", 1)
     add_body(document,
-        "Esta prova de conceito apresenta o Vertex SDD Hub, uma aplicação para registrar mudanças "
+        "Esta prova de conceito apresenta o Projeto Lastro, uma aplicação para registrar mudanças "
         "de software como especificações revisáveis e vincular critérios de aceite, evidências de "
         "qualidade e decisões de release. O sistema combina Java 21, Spring Boot 4, PostgreSQL e "
         "Angular 21. A arquitetura mantém as regras de negócio fora dos frameworks, oferece uma API "
@@ -228,13 +228,13 @@ def summary_pages(document):
 
     add_heading(document, "ABSTRACT", 1)
     add_body(document,
-        "This proof of concept presents Vertex SDD Hub, an application that records software changes "
+        "This proof of concept presents the Projeto Lastro platform, an application that records software changes "
         "as reviewable specifications and connects acceptance criteria, quality evidence and release "
         "decisions. The solution combines Java 21, Spring Boot 4, PostgreSQL and Angular 21. Business "
         "rules remain independent from frameworks, while REST supports the operational workflow and "
         "read-only MCP tools provide safe context to development agents. Verification covered automated "
         "tests, an architecture rule, static analysis, 97.22% business-logic coverage, a production build "
-        "and container execution. Vertex complements delivery tools by preserving the link between a "
+        "and container execution. Lastro complements delivery tools by preserving the link between a "
         "change intention and the evidence used to authorize its release.")
     p = document.add_paragraph()
     p.add_run("Keywords: ").bold = True
@@ -267,7 +267,7 @@ def content(document):
     add_body(document,
         "Uma entrega pode passar pelo pipeline e ainda assim chegar ao ambiente sem uma explicação "
         "clara sobre o comportamento validado. Esse problema aparece quando requisito, decisão técnica, "
-        "teste e aprovação vivem em ferramentas diferentes. O Vertex SDD Hub foi construído para "
+        "teste e aprovação vivem em ferramentas diferentes. O Projeto Lastro foi construído para "
         "experimentar outro ponto de partida: a especificação é o contrato de engenharia, e a prontidão "
         "de release é uma conclusão derivada de evidências, não uma caixa marcada manualmente.")
     add_body(document,
@@ -301,7 +301,7 @@ def content(document):
     add_heading(document, "3.1 Spec-Driven Development", 2)
     add_body(document,
         "No desenvolvimento orientado por especificações, o comportamento esperado é escrito antes da "
-        "implementação e permanece versionado com ela. No Vertex, cada critério recebe identidade e pode "
+        "implementação e permanece versionado com ela. No Lastro, cada critério recebe identidade e pode "
         "ser verificado de forma independente. O planner produz tarefas que citam esses identificadores, "
         "o que reduz a distância entre planejamento e teste.")
     add_heading(document, "3.2 Arquitetura hexagonal", 2)
@@ -316,7 +316,7 @@ def content(document):
         "reduz o impacto de um prompt incorreto e mantém decisões de fluxo nas APIs controladas.")
 
     add_heading(document, "4 ARQUITETURA DA SOLUÇÃO")
-    add_figure(document, ASSETS / "system-context.png", "Figura 1 — Contexto do Vertex SDD Hub", 6.1)
+    add_figure(document, ASSETS / "system-context.png", "Figura 1 — Contexto do Projeto Lastro", 6.1)
     add_body(document,
         "A pessoa desenvolvedora e o revisor usam o painel Angular. A interface chama a API com uma chave "
         "de desenvolvimento; a API persiste o agregado em PostgreSQL. Pipelines registram referências de "
@@ -371,7 +371,7 @@ def content(document):
         ("Checkstyle", "0 violações"),
         ("SpotBugs", "0 achados"),
         ("Testes Angular", "2 aprovados"),
-        ("Bundle Angular", "239,14 KB bruto; 62,45 KB estimados na transferência"),
+        ("Bundle Angular", "251,68 KB bruto; 65,39 KB estimados na transferência"),
         ("Containers", "PostgreSQL, backend e frontend saudáveis")
     ], [5.3, 9.2])
 
@@ -390,8 +390,8 @@ def content(document):
     add_body(document,
         "A validação seguiu quatro etapas: verificação isolada do backend; build e teste do Angular; build "
         "das imagens; inicialização do Compose com health checks. Depois, três specs de demonstração foram "
-        "criadas pela própria API. A spec principal avançou até IMPLEMENTING, recebeu dois critérios e três "
-        "gates aprovados e permaneceu bloqueada pelos itens restantes.")
+        "criadas pela própria API. A spec principal avançou até IMPLEMENTING e permaneceu bloqueada por "
+        "três critérios de aceite e cinco gates ainda sem evidência.")
     add_figure(document, ASSETS / "release-sequence.png", "Figura 5 — Avaliação e confirmação de release", 6.2)
     add_body(document,
         "O cenário confirma uma decisão importante: o botão de release pode aparecer durante a implementação, "
@@ -413,7 +413,7 @@ def content(document):
 
     add_heading(document, "11 CONCLUSÃO")
     add_body(document,
-        "O Vertex SDD Hub demonstrou que SDD, qualidade e agentes podem compartilhar a mesma trilha sem "
+        "O Projeto Lastro demonstrou que SDD, qualidade e agentes podem compartilhar a mesma trilha sem "
         "transformar IA em autoridade de release. A principal entrega não é um CRUD de especificações, mas "
         "um conjunto de invariantes: a mudança precisa ser revisada, cada critério precisa de verificação e "
         "cada gate precisa de evidência. Os testes, a análise estática e a execução em containers confirmam "
@@ -448,7 +448,7 @@ def add_headers_and_footers(document):
         section.header.is_linked_to_previous = False
         section.footer.is_linked_to_previous = False
         header = section.header.paragraphs[0]
-        header.text = "VERTEX SDD HUB  ·  POC TÉCNICA"
+        header.text = "PROJETO LASTRO  ·  POC TÉCNICA"
         header.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         header.runs[0].font.name = "Arial"
         header.runs[0].font.size = Pt(8)
@@ -472,7 +472,7 @@ def build():
     content(document)
     add_headers_and_footers(document)
     properties = document.core_properties
-    properties.title = "Vertex SDD Hub — Prova de conceito"
+    properties.title = "Projeto Lastro — Prova de conceito"
     properties.author = "Pedro Igor Campos Costa"
     properties.subject = "Java, Spring Boot, Angular, SDD, MCP e engenharia de software"
     properties.keywords = "Java, Spring Boot, Angular, SDD, MCP, agentes, testes"

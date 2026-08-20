@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Vertex SDD Hub API
+  title: Projeto Lastro API
   version: 0.1.0
   description: Lifecycle and release evidence for change specifications.
 servers:

@@ -15,7 +15,7 @@
 3. Apply Flyway migration with one backend replica.
 4. Check `/actuator/health` and a read-only specification query.
 5. Roll out the remaining replicas and the frontend.
-6. Record the deployment URL or job as release evidence in Vertex.
+6. Record the deployment URL or job as release evidence in Lastro.
 
 ## Rollback
 
