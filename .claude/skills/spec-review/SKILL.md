@@ -1,6 +1,6 @@
 ---
 name: spec-review
-description: Review a Vertex change specification before implementation or release.
+description: Review a Lastro change specification before implementation or release.
 ---
 
 # Specification review
@@ -14,7 +14,7 @@ Use this skill when a change is about to enter review, implementation or release
 3. Check every acceptance criterion for a single, testable behavior.
 4. Identify security, migration, rollback and observability risks.
 5. Map implementation tasks and tests back to criterion identifiers.
-6. Query `vertex_release_readiness` through MCP before recommending release.
+6. Query `lastro_release_readiness` through MCP before recommending release.
 7. Report blockers plainly. Do not pass a gate or mutate a specification.
 
 ## Output

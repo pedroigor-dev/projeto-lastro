@@ -8,5 +8,5 @@ O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e o 
 
 ### Adicionado
 
-- especificação inicial do Vertex SDD Hub;
+- especificação inicial do Projeto Lastro;
 - decisões de arquitetura e limites do primeiro incremento.

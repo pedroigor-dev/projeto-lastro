@@ -1,10 +1,10 @@
 {
   "mcpServers": {
-    "vertex-sdd-hub": {
+    "projeto-lastro": {
       "type": "http",
       "url": "http://localhost:8080/mcp",
       "headers": {
-        "X-API-Key": "${VERTEX_API_KEY}"
+        "X-API-Key": "${LASTRO_API_KEY}"
       }
     }
   }

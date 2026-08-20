@@ -1,10 +1,10 @@
 spring:
   application:
-    name: vertex-sdd-hub
+    name: projeto-lastro
   datasource:
-    url: ${VERTEX_DATABASE_URL:jdbc:postgresql://localhost:5432/vertex}
-    username: ${VERTEX_DATABASE_USER:vertex}
-    password: ${VERTEX_DATABASE_PASSWORD:vertex}
+    url: ${LASTRO_DATABASE_URL:jdbc:postgresql://localhost:5432/lastro}
+    username: ${LASTRO_DATABASE_USER:lastro}
+    password: ${LASTRO_DATABASE_PASSWORD:lastro}
   jpa:
     open-in-view: false
     hibernate:
@@ -14,7 +14,7 @@ spring:
   ai:
     mcp:
       server:
-        name: vertex-sdd-hub
+        name: projeto-lastro
         version: 0.1.0
         protocol: STATELESS
         instructions: Ferramentas somente leitura para consultar especificações e prontidão de release.
@@ -29,9 +29,9 @@ management:
       probes:
         enabled: true
 
-vertex:
+lastro:
   security:
-    api-key: ${VERTEX_API_KEY:local-development-key}
+    api-key: ${LASTRO_API_KEY:local-development-key}
 
 server:
   shutdown: graceful

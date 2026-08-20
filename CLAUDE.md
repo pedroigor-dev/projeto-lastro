@@ -1,6 +1,6 @@
 # Working agreement
 
-Vertex is developed from an approved specification, not from an isolated prompt. Before changing code:
+Lastro is developed from an approved specification, not from an isolated prompt. Before changing code:
 
 1. read the active file under `specs/` and quote the acceptance criterion being addressed;
 2. inspect the relevant ADRs and preserve the domain boundaries;

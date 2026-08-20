@@ -2,7 +2,7 @@
 
 Este repositório usa Spec-Driven Development. Antes de alterar comportamento:
 
-1. leia `specs/001-vertex-sdd-hub/spec.md` e a ADR relacionada;
+1. leia `specs/001-projeto-lastro/spec.md` e a ADR relacionada;
 2. identifique o critério de aceite atendido pela mudança;
 3. escreva ou atualize o teste que demonstra o comportamento;
 4. mantenha domínio e casos de uso independentes de HTTP, JPA e Angular;

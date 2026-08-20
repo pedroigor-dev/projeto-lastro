@@ -2,24 +2,24 @@ services:
   database:
     image: postgres:17-alpine
     environment:
-      POSTGRES_DB: vertex
-      POSTGRES_USER: vertex
-      POSTGRES_PASSWORD: vertex
+      POSTGRES_DB: lastro
+      POSTGRES_USER: lastro
+      POSTGRES_PASSWORD: lastro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U vertex -d vertex"]
+      test: ["CMD-SHELL", "pg_isready -U lastro -d lastro"]
       interval: 5s
       timeout: 3s
       retries: 10
     volumes:
-      - vertex-data:/var/lib/postgresql/data
+      - lastro-data:/var/lib/postgresql/data
 
   backend:
     build: ./backend
     environment:
-      VERTEX_DATABASE_URL: jdbc:postgresql://database:5432/vertex
-      VERTEX_DATABASE_USER: vertex
-      VERTEX_DATABASE_PASSWORD: vertex
-      VERTEX_API_KEY: local-development-key
+      LASTRO_DATABASE_URL: jdbc:postgresql://database:5432/lastro
+      LASTRO_DATABASE_USER: lastro
+      LASTRO_DATABASE_PASSWORD: lastro
+      LASTRO_API_KEY: local-development-key
     depends_on:
       database:
         condition: service_healthy
@@ -38,4 +38,4 @@ services:
         condition: service_healthy
 
 volumes:
-  vertex-data:
+  lastro-data:
