@@ -17,7 +17,7 @@ O Lastro deve manter o vínculo entre a necessidade, os critérios de aceite, a 
 - pessoa de produto que descreve o problema e os critérios de aceite;
 - pessoa desenvolvedora que planeja e implementa a mudança;
 - pessoa revisora que avalia riscos e evidências antes da aprovação;
-- agente de desenvolvimento que consulta a especificação por MCP e propõe um plano verificável.
+- cliente de integração que consulta a especificação por MCP e apresenta um plano verificável.
 
 ## Escopo do primeiro incremento
 
@@ -59,7 +59,7 @@ O sistema deve permitir:
 - a aplicação nunca infere um gate aprovado pela ausência de erro;
 - uma especificação só muda para `RELEASED` após uma avaliação de prontidão aprovada.
 
-### Agente e MCP
+### Consultas e MCP
 
 - o plano gerado deve referenciar os identificadores dos critérios de aceite;
 - a resposta deve separar tarefas de backend, frontend, testes e documentação;

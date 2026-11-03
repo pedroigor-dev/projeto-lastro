@@ -177,7 +177,7 @@ def cover(document):
     subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
     subtitle.add_run(
         "Prova de conceito para entrega orientada por especificações,\n"
-        "evidências de qualidade e desenvolvimento agêntico"
+        "evidências de qualidade e rastreabilidade de releases"
     ).bold = True
     document.add_paragraph("\n\n\n\n\n\n")
     city = document.add_paragraph("Salvador\n2026")
@@ -198,7 +198,7 @@ def title_page(document):
     note = document.add_paragraph(
         "Prova de conceito apresentada como documentação técnica de portfólio, com o objetivo "
         "de demonstrar decisões arquiteturais, práticas de qualidade e integração entre Java, "
-        "Spring Boot, Angular, SDD e ferramentas para desenvolvimento agêntico."
+        "Spring Boot, Angular, SDD e rastreabilidade de entregas."
     )
     note.alignment = WD_ALIGN_PARAGRAPH.LEFT
     note.paragraph_format.left_indent = Cm(7)
@@ -217,7 +217,7 @@ def summary_pages(document):
         "de software como especificações revisáveis e vincular critérios de aceite, evidências de "
         "qualidade e decisões de release. O sistema combina Java 21, Spring Boot 4, PostgreSQL e "
         "Angular 21. A arquitetura mantém as regras de negócio fora dos frameworks, oferece uma API "
-        "REST para o fluxo operacional e publica consultas MCP somente leitura para agentes. A "
+        "REST para o fluxo operacional e publica consultas MCP somente leitura para integrações. A "
         "validação incluiu testes automatizados, regra arquitetural, análise estática, cobertura de "
         "97,22% na lógica de negócio, build de produção e execução dos três serviços em containers. "
         "O resultado não pretende substituir Jira, GitLab ou Jenkins. Seu papel é preservar o vínculo "
@@ -232,7 +232,7 @@ def summary_pages(document):
         "as reviewable specifications and connects acceptance criteria, quality evidence and release "
         "decisions. The solution combines Java 21, Spring Boot 4, PostgreSQL and Angular 21. Business "
         "rules remain independent from frameworks, while REST supports the operational workflow and "
-        "read-only MCP tools provide safe context to development agents. Verification covered automated "
+        "read-only MCP tools provide context to integration clients. Verification covered automated "
         "tests, an architecture rule, static analysis, 97.22% business-logic coverage, a production build "
         "and container execution. Lastro complements delivery tools by preserving the link between a "
         "change intention and the evidence used to authorize its release.")
@@ -247,7 +247,7 @@ def summary_pages(document):
         ("3 FUNDAMENTAÇÃO TÉCNICA", 6), ("4 ARQUITETURA DA SOLUÇÃO", 6),
         ("5 IMPLEMENTAÇÃO", 7), ("6 SEGURANÇA E CONFIABILIDADE", 10),
         ("7 ESTRATÉGIA DE TESTES E QUALIDADE", 10),
-        ("8 DESENVOLVIMENTO AGÊNTICO", 10),
+        ("8 PLANEJAMENTO E REVISÃO", 10),
         ("9 EXECUÇÃO DA PROVA DE CONCEITO", 11),
         ("10 DECISÕES, LIMITES E EVOLUÇÃO", 11),
         ("11 CONCLUSÃO", 12), ("REFERÊNCIAS", 12)
@@ -272,7 +272,7 @@ def content(document):
         "de release é uma conclusão derivada de evidências, não uma caixa marcada manualmente.")
     add_body(document,
         "A aplicação foi planejada a partir de uma especificação versionada antes do código. As decisões "
-        "que afetam estrutura, inteligência artificial e exposição para agentes foram registradas em "
+        "que afetam estrutura, planejamento e interfaces de integração foram registradas em "
         "Architecture Decision Records (ADRs). Essa sequência permite examinar não apenas o resultado, "
         "mas também os critérios e os trade-offs adotados.")
 
@@ -292,7 +292,7 @@ def content(document):
         "modelar transições explícitas e impedir estados inválidos no domínio;",
         "apresentar bloqueadores concretos quando a entrega não está pronta;",
         "expor uma interface Angular utilizável sem duplicar regras de negócio;",
-        "oferecer contexto seguro para agentes por meio de consultas MCP somente leitura;",
+        "oferecer contexto para integrações por meio de consultas MCP somente leitura;",
         "produzir evidências automatizadas de testes, cobertura, análise estática e composição;",
         "documentar riscos, decisões arquiteturais, operação e possibilidades de evolução."
     ])
@@ -309,9 +309,9 @@ def content(document):
         "O domínio não importa Spring, JPA ou classes de transporte. Serviços de aplicação coordenam casos "
         "de uso, enquanto repositório e planner são portas. Essa separação torna as regras executáveis em "
         "testes rápidos e permite trocar adaptadores sem reescrever o fluxo de negócio.")
-    add_heading(document, "3.3 MCP e agentes", 2)
+    add_heading(document, "3.3 Interfaces de consulta", 2)
     add_body(document,
-        "Model Context Protocol oferece uma fronteira padronizada para ferramentas consumidas por agentes. "
+        "Model Context Protocol oferece uma fronteira padronizada para ferramentas de consulta. "
         "A POC publica listagem, detalhe e prontidão. Nenhuma ferramenta altera o sistema. Essa restrição "
         "reduz o impacto de um prompt incorreto e mantém decisões de fluxo nas APIs controladas.")
 
@@ -320,7 +320,7 @@ def content(document):
     add_body(document,
         "A pessoa desenvolvedora e o revisor usam o painel Angular. A interface chama a API com uma chave "
         "de desenvolvimento; a API persiste o agregado em PostgreSQL. Pipelines registram referências de "
-        "evidência, enquanto agentes consultam o mesmo estado por MCP. O Actuator publica saúde e métricas.")
+        "evidência, enquanto clientes de integração consultam o mesmo estado por MCP. O Actuator publica saúde e métricas.")
     add_figure(document, ASSETS / "component-architecture.png", "Figura 2 — Componentes e dependências", 6.2)
     add_body(document,
         "As setas confirmam a direção das dependências: adaptadores conhecem portas, mas o domínio não "
@@ -355,7 +355,7 @@ def content(document):
     add_table(document, ["Risco", "Controle atual", "Evolução"], [
         ("Atualização concorrente", "Lock otimista", "Resposta de conflito com versão atual"),
         ("Evidência forjada", "Referência obrigatória e auditoria", "Assinatura do provedor de CI"),
-        ("Agente com excesso de poder", "MCP somente leitura", "Revisão formal de novas tools"),
+        ("Cliente com excesso de permissão", "MCP somente leitura", "Revisão formal de novas consultas"),
         ("Dependência comprometida", "Lockfile, SBOM e Dependabot", "Assinatura de imagens")
     ], [4, 5.2, 5.2])
 
@@ -375,16 +375,15 @@ def content(document):
         ("Containers", "PostgreSQL, backend e frontend saudáveis")
     ], [5.3, 9.2])
 
-    add_heading(document, "8 DESENVOLVIMENTO AGÊNTICO")
+    add_heading(document, "8 PLANEJAMENTO E REVISÃO")
     add_body(document,
-        "O repositório contém CLAUDE.md e uma skill de revisão. O acordo de trabalho exige leitura da "
-        "especificação, vínculo com critérios, consulta aos ADRs e execução de evidências antes de concluir "
-        "uma tarefa. Assim, a produtividade do agente é limitada por controles verificáveis, em vez de "
-        "depender apenas de uma instrução extensa.")
+        "O processo de contribuição exige leitura da especificação, vínculo com critérios, consulta aos "
+        "ADRs e execução das verificações antes de concluir uma tarefa. A revisão relaciona cada mudança "
+        "às evidências de comportamento, segurança e qualidade necessárias para a entrega.")
     add_body(document,
         "O planner local é deliberadamente determinístico. Ele cria tarefas para backend, frontend, testes "
-        "e documentação e referencia todos os critérios. Um modelo generativo pode ser adicionado atrás da "
-        "mesma porta, desde que tenha avaliação, fallback e controle de custo.")
+        "e documentação e referencia todos os critérios. Outros adaptadores podem implementar a mesma "
+        "porta, preservando os contratos e os testes do caso de uso.")
 
     add_heading(document, "9 EXECUÇÃO DA PROVA DE CONCEITO")
     add_body(document,
@@ -403,18 +402,18 @@ def content(document):
         ("Monorepo", "Uma mudança preserva código, spec e evidência", "Pipelines precisam separar caches"),
         ("Domínio sem framework", "Testes rápidos e regras explícitas", "Mapeamento JPA adicional"),
         ("Planner local", "Determinismo, privacidade e custo zero", "Menor adaptação semântica"),
-        ("MCP somente leitura", "Menor superfície de risco", "Agentes não automatizam transições"),
+        ("MCP somente leitura", "Menor superfície de risco", "Clientes não automatizam transições"),
         ("API key na POC", "Execução local simples", "Inadequada para identidades corporativas")
     ], [4.1, 5.2, 5.2])
     add_body(document,
         "As próximas evoluções recomendadas são OIDC, verificação assinada de evidências de CI, paginação, "
-        "integração real com Jira, testes end-to-end e observabilidade distribuída. A adoção de um modelo de "
-        "IA deve vir acompanhada de dataset de avaliação e métricas de utilidade do plano.")
+        "integração real com Jira, testes end-to-end e observabilidade distribuída. Novos adaptadores "
+        "devem preservar os critérios de aceite e ser avaliados com cenários reproduzíveis.")
 
     add_heading(document, "11 CONCLUSÃO")
     add_body(document,
-        "O Projeto Lastro demonstrou que SDD, qualidade e agentes podem compartilhar a mesma trilha sem "
-        "transformar IA em autoridade de release. A principal entrega não é um CRUD de especificações, mas "
+        "O Projeto Lastro reúne SDD, qualidade e rastreabilidade em uma trilha de entrega verificável. "
+        "A principal entrega não é um CRUD de especificações, mas "
         "um conjunto de invariantes: a mudança precisa ser revisada, cada critério precisa de verificação e "
         "cada gate precisa de evidência. Os testes, a análise estática e a execução em containers confirmam "
         "a viabilidade técnica da POC. Os limites registrados indicam com honestidade o trabalho necessário "
@@ -475,7 +474,7 @@ def build():
     properties.title = "Projeto Lastro — Prova de conceito"
     properties.author = "Pedro Igor Campos Costa"
     properties.subject = "Java, Spring Boot, Angular, SDD, MCP e engenharia de software"
-    properties.keywords = "Java, Spring Boot, Angular, SDD, MCP, agentes, testes"
+    properties.keywords = "Java, Spring Boot, Angular, SDD, MCP, testes"
     document.save(OUTPUT)
     print(OUTPUT)
 

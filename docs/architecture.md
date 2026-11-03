@@ -49,5 +49,5 @@ sequenceDiagram
 ## Decisões relacionadas
 
 - [ADR 001: monorepo e limites hexagonais](adr/0001-monorepo-and-hexagonal-boundaries.md)
-- [ADR 002: agente local antes de integração com LLM](adr/0002-local-planner-first.md)
+- [ADR 002: planejador local determinístico](adr/0002-local-planner-first.md)
 - [ADR 003: ferramentas MCP somente leitura](adr/0003-read-only-mcp-tools.md)

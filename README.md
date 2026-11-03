@@ -27,7 +27,7 @@ O Lastro mantém esse fio. Cada mudança nasce como especificação, passa por r
 - Persistência PostgreSQL versionada por Flyway.
 - Angular com signals, Reactive Forms, cliente tipado e interface responsiva em paleta monocromática.
 - Planner local determinístico: funciona sem custo externo e referencia todos os critérios.
-- Servidor MCP com ferramentas somente leitura para uso seguro por agentes.
+- Interface MCP com consultas somente leitura para integrações externas.
 - Métricas Prometheus, health checks, SBOM CycloneDX, Checkstyle, SpotBugs e JaCoCo.
 - Pipelines para GitHub Actions, GitLab CI e Jenkins, além de configuração SonarQube.
 - ADRs, threat model, contrato OpenAPI, playbook de release e POC em formato acadêmico.
@@ -92,9 +92,9 @@ npm run build           # bundle inicial: 252 KB bruto
 
 A política de cobertura exige pelo menos 85% sobre domínio e serviços de aplicação. Na versão atual, essa área atingiu **97,22%**. Adaptadores, DTOs e configuração são excluídos desse número; isso está declarado no `pom.xml`, sem maquiar o escopo da métrica.
 
-## SDD e desenvolvimento agêntico
+## Especificação e revisão técnica
 
-A especificação inicial está em [`specs/001-projeto-lastro/spec.md`](specs/001-projeto-lastro/spec.md). O [`CLAUDE.md`](CLAUDE.md) obriga o agente a partir de um critério, consultar ADRs e produzir evidência. A skill [`spec-review`](.claude/skills/spec-review/SKILL.md) transforma a revisão em um procedimento repetível.
+A especificação inicial está em [`specs/001-projeto-lastro/spec.md`](specs/001-projeto-lastro/spec.md). A revisão relaciona os critérios de aceite aos testes, consulta as decisões arquiteturais e registra as evidências necessárias para a entrega. O processo de contribuição está em [CONTRIBUTING.md](CONTRIBUTING.md).
 
 O MCP expõe três consultas: lista de specs, detalhe de uma spec e prontidão de release. A decisão de não oferecer escrita está documentada no [ADR-0003](docs/adr/0003-read-only-mcp-tools.md).
 
@@ -102,7 +102,7 @@ O MCP expõe três consultas: lista de specs, detalhe de uma spec e prontidão d
 
 - A autenticação por chave compartilhada é adequada à POC, não a um ambiente corporativo. O próximo passo é OIDC com papéis.
 - As evidências são referências rastreáveis, mas ainda não têm assinatura criptográfica do provedor de CI.
-- O planner é determinístico para tornar o comportamento testável. Um provedor de IA pode entrar depois, atrás da mesma porta, com avaliação e fallback.
+- O planner é determinístico para tornar o comportamento testável. Outros adaptadores podem implementar a mesma porta sem alterar as regras do caso de uso.
 - A integração com Jira está mapeada, mas não automatizada antes de validar o fluxo com um time real.
 
 Esses limites também aparecem no [threat model](docs/security-threat-model.md) e no [playbook de release](docs/release-playbook.md).

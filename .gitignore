@@ -23,6 +23,7 @@ docs/poc/rendered/
 docs/poc/.tmp/
 work/*
 !work/build_poc.py
+!work/build_context_diagram.py
 
 # Operating systems
 .DS_Store

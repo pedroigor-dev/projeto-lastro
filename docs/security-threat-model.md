@@ -12,7 +12,7 @@ The service protects specifications, acceptance evidence, audit history and the 
 | Cross-site requests | Explicit CORS origin for local Angular client | Configure allowed origins per deployed environment |
 | Lost concurrent update | JPA optimistic locking | Return the current version in a richer conflict response |
 | Fabricated release evidence | Evidence reference required for passed gates; audit trail | Validate CI signatures through provider APIs |
-| Agent changes production state | MCP surface is read-only | Review every new MCP tool against ADR-0003 |
+| Integration client changes production state | MCP surface is read-only | Review every new MCP tool against ADR-0003 |
 | Dependency compromise | Lockfile, SBOM, Dependabot, CI scans | Add image signing and admission policy |
 | Secret disclosure | Environment-variable configuration | Use a secret manager and automatic rotation |
 

@@ -4,7 +4,7 @@ Status: aceita em 20 de agosto de 2026.
 
 ## Contexto
 
-Ferramentas chamadas por agentes podem produzir efeitos difíceis de perceber. Alterar status ou liberar uma release exige julgamento humano.
+Interfaces de integração podem produzir efeitos difíceis de perceber. Alterar status ou liberar uma release exige revisão e autorização.
 
 ## Decisão
 
@@ -12,4 +12,4 @@ O servidor MCP inicial expõe apenas listagem, consulta e avaliação de prontid
 
 ## Consequências
 
-O agente recebe contexto suficiente para planejar e revisar. Ele não consegue aprovar ou liberar uma mudança. Se ferramentas de escrita forem adicionadas, cada chamada deverá exigir confirmação explícita e auditoria.
+O cliente recebe contexto para consultar e revisar. Ele não consegue aprovar ou liberar uma mudança. Se operações de escrita forem adicionadas, cada chamada deverá exigir autorização explícita e auditoria.
