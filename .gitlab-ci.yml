@@ -1,3 +1,4 @@
+# Pipeline de qualidade e build do backend e frontend.
 stages: [quality, build]
 
 backend-quality:

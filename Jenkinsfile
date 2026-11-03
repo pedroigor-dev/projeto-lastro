@@ -1,3 +1,4 @@
+// Pipeline de verificacao do backend e frontend, com analise de qualidade.
 pipeline {
     agent any
     tools {
